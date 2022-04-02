@@ -2,27 +2,23 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      parallel {
-        stage('Build') {
-          steps {
+      steps {
             sh 'echo "building the repo"'
-          }
         }
       }
-    }
-  
-    stage('Test') {
+    
+    stage('Installing dependencies') {
       steps {
-        sh 'python3 app.py'
-        input(id: "Deploy Gate", message: "Deploy ${params.project_name}?", ok: 'Deploy')
+        sh 'pip install -r requirements.txt'
       }
     }
+    
   
     stage('Deploy')
     {
       steps {
         echo "deploying the application"
-        sh "sudo nohup python3 app.py > log.txt 2>&1 &"
+        sh "sudo python3 app.py"
       }
     }
   }
