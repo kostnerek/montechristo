@@ -18,7 +18,7 @@ pipeline {
     {
       steps {
         echo "deploying the application"
-        sh "sudo python3 app.py"
+        sh "python3 app.py"
       }
     }
   }
