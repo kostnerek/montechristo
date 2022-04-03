@@ -28,9 +28,9 @@ jobs:
             - run: |
                     ls /home/circleci/.ssh
             - run: |
-                  ssh lema@20.222.251.245
+                  ssh lema@20.222.251.245 \<<'ENDSSH' 
                   docker pull kostnerek/montechristo
                   docker stop montechristo
                   docker rm montechristo
                   docker run --name:montechristo -p 80:80 -d kostnerek/montechristo --restart=always
-                  exit
+                  ENDSSH
