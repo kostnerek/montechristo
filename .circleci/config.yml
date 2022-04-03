@@ -1,8 +1,17 @@
-version: 2.0
+version: 2
 jobs:
     build:
-        docker:
-            - image: kostnerek/montechristo
-              auth:
-                  username: kostnerek
-                  password: $DOCKERHUB_PASSWORD # context / project UI env-var reference
+        machine: true
+        steps:
+            - checkout
+            # start proprietary DB using private Docker image
+            # with credentials stored in the UI
+            - run: |
+                  echo "$DOCKERHUB_PASSWORD" | docker login --username kostnerek --password-stdin
+                  docker run -d --name montechristo kostnerek/montechristo
+
+            # build the application image
+            - run: docker build -t kostnerek/montechristo .
+
+            # deploy the image
+            - run: docker push kostnerek/montechristo
