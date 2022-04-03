@@ -26,7 +26,7 @@ jobs:
             - run: |
                   ssh lema@20.222.251.245 \<<'ENDSSH' 
                   sudo docker pull kostnerek/montechristo
-                  sudo docker kill nginx_client_1
-                  sudo docker kill nginx_api_1
-                  sudo docker-compose -f /home/lema/docker-compose.yml up
+                  sudo docker kill lema_client_1
+                  sudo docker kill lema_api_1
+                  tmux new -d 'sudo docker-compose -f /home/lema/docker-compose.yml up'
                   ENDSSH
