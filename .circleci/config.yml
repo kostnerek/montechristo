@@ -1,8 +1,13 @@
 version: 2
+workflows:
+    my-workflow:
+        jobs:
+            - build:
+                  context:
+                      - org-global
+                      - my-context
 jobs:
     build:
-    context:
-      - montechristo-env-vars
         machine: true
         steps:
             - checkout
