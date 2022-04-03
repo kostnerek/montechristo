@@ -3,15 +3,16 @@ workflows:
     my-workflow:
         jobs:
             - build:
-                  context:
-                      - montechristo-env-vars
+                context:
+                    - montechristo-env-vars
+
+                   
+
 jobs:
     build:
         machine: true
         steps:
             - checkout
-            # start proprietary DB using private Docker image
-            # with credentials stored in the UI
             - run: |
                   echo "$DOCKERHUB_PASSWORD" | docker login --username kostnerek --password-stdin
                   docker run -d --name montechristo kostnerek/montechristo
@@ -21,8 +22,11 @@ jobs:
 
             # deploy the image
             - run: docker push kostnerek/montechristo
+            - add_ssh_keys:
+                        fingerprints:
+                            - "04:f8:a5:21:e4:db:78:be:53:20:be:7c:d0:b3:8e:12"
             - run: |
-                  ssh -i $OPENSSH VPSUSER@VPSIP
+                  ssh VPSUSER@VPSIP
                   docker pull kostnerek/montechristo
                   docker stop montechristo
                   docker rm montechristo
