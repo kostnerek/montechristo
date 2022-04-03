@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Building docker image') {
       steps {
-        sh 'sudo docker build -t montechristo .'
+        sh 'sudo docker build -t montechristo /var/lib/jenkins/workspace/montechristo_montechristo/'
       }
     }
     
