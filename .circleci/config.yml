@@ -32,5 +32,5 @@ jobs:
                   sudo docker pull kostnerek/montechristo
                   sudo docker stop montechristo
                   sudo docker rm montechristo
-                  sudo docker run --name:montechristo -p 80:80 -d kostnerek/montechristo --restart=always
+                  sudo docker run --name montechristo -p 80:80 -d kostnerek/montechristo
                   ENDSSH
