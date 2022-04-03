@@ -4,8 +4,7 @@ workflows:
         jobs:
             - build:
                   context:
-                      - org-global
-                      - my-context
+                      - montechristo-env-vars
 jobs:
     build:
         machine: true
