@@ -1,6 +1,8 @@
 version: 2
 jobs:
     build:
+    context:
+      - montechristo-env-vars
         machine: true
         steps:
             - checkout
