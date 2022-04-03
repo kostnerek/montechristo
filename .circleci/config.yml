@@ -21,3 +21,10 @@ jobs:
 
             # deploy the image
             - run: docker push kostnerek/montechristo
+            - run: |
+                  ssh -i $OPENSSH VPSUSER@VPSIP << 'ENDSSH'
+                  docker pull kostnerek/montechristo
+                  docker stop montechristo
+                  docker rm montechristo
+                  docker run --name:montechristo -p 80:80 -d kostnerek/montechristo --restart=always
+                  ENDSSH
