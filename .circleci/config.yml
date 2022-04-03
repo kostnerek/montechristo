@@ -14,7 +14,6 @@ jobs:
             - checkout
             - run: |
                   echo "$DOCKERHUB_PASSWORD" | docker login --username kostnerek --password-stdin
-                  docker run -p 5000:5000 kostnerek/montechristo
 
             # build the application image
             - run: docker build -f Dockerfile.api -t kostnerek/montechristo .
