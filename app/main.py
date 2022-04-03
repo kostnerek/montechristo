@@ -1,14 +1,14 @@
 from flask import Flask, jsonify
-
-app = Flask(__name__)
+import time
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 @app.route('/')
 def index():
-    return jsonify({'endpoints': {'/': 'Home', '/temperature': 'returns temperature', '/v': 'returns version'}})
+    return app.send_static_file('index.html')
 
-@app.route('/temperature')
+@app.route('/api/time')
 def temperature():
-    return jsonify({'temperature': '20'})
+    return jsonify({'time': time.time()})
 
 @app.route('/v')
 def version():
