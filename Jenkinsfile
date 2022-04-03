@@ -1,24 +1,16 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Building docker image') {
       steps {
-            sh 'echo "building the repo"'
-        }
-      }
-    
-    stage('Installing dependencies') {
-      steps {
-        sh 'sudo pip install -r requirements.txt'
+        sh 'sudo docker build -t montechristo .'
       }
     }
     
   
-    stage('Deploy')
-    {
+    stage('Running docker image') {
       steps {
-        echo "deploying the application"
-        sh "sudo python3 app.py"
+        sh "sudo docker run -p 80:80 montechristo"
       }
     }
   }
