@@ -26,7 +26,7 @@ jobs:
                         fingerprints:
                             - "04:f8:a5:21:e4:db:78:be:53:20:be:7c:d0:b3:8e:12"
             - run: |
-                  ssh echo "$VPS_CONNECT"
+                  ssh echo {$VPS_CONNECT}
                   docker pull kostnerek/montechristo
                   docker stop montechristo
                   docker rm montechristo
