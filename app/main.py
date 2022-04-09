@@ -13,4 +13,5 @@ def temperature():
 @app.route('/v')
 def version():
     return jsonify({'version': '0.1.0'})
-#app.run()
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
