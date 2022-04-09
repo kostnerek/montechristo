@@ -1,3 +1,5 @@
 /venv
 /__pycache__
 /.tests
+/app/__pycache__
+/app/resources/User/__pycache__
