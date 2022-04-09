@@ -5,15 +5,9 @@ workflows:
         jobs:
             - test:
                   filters:
-                      - branches:
+                      branches:
                             only:
                                 - dev
-                            except:
-                                - hotfix
-                                - feature
-                                - release/
-                                - hotfix/
-                                - feature/
             - build:
                   context:
                       - montechristo-env-vars
