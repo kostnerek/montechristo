@@ -53,10 +53,6 @@ class UserLogout(Resource):
         #print(refresh_token)
         access_token_jti=get_jwt()['jti']
         refresh_token_jti=get_jti(refresh_token)
-        """ print('access token: ',access_token_jti)
-        print('refresh token: ',refresh_token_jti) """
-
-        #print("Fresh token", get_jwt()['jti'])
         BLACKLIST.add(access_token_jti)
         BLACKLIST.add(refresh_token_jti)
         #print(BLACKLIST)

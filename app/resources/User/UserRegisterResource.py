@@ -78,6 +78,8 @@ class UserRegister(Resource):
             return {'message': 'Invalid mail'}, 400
         if not self.validate_password(data['password']):
             return {'message': 'Invalid password'}, 400
+        if len(data['username']) < 3:
+            return {'message': 'Username must be at least 3 characters long'}, 400
         user = UserModel(**data)
         user.save_to_db()
         return {'message': 'User created successfully', 'user': user.json()}, 201

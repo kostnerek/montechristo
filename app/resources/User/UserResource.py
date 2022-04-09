@@ -6,13 +6,13 @@ class User(Resource):
         user = UserModel.find_by_id(user_id)
         if not user:
             return {'message': 'User not found'}, 404
-        return user.json()
+        return user.json(), 200
     def delete(self, user_id):
         user = UserModel.find_by_id(user_id)
         if not user:
             return {'message': 'User not found'}, 404
         user.delete_from_db()
-        return {'message': 'User deleted'}
+        return {'message': 'User deleted'}, 200
 
 
 
