@@ -3,14 +3,13 @@ version: 2.1
 workflows:
     backend-workflow:
         jobs:
-            - test:
-                  filters:
+            - build:
+                context:
+                    - montechristo-env-vars
+                filters:
                       branches:
                             only:
                                 - dev
-            - build:
-                  context:
-                      - montechristo-env-vars
 
 jobs:
     build:
