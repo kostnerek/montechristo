@@ -1,42 +1,19 @@
 #from db import db
 from app.db import db 
 from werkzeug.security import generate_password_hash
-
-class UserModel(db.Model):
-    __tablename__ = 'users'
-
-    id       = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80))
-    password = db.Column(db.String(80))
-    mail     = db.Column(db.String(80))
-
-    def __init__(self, username: str, password:str, mail:str)->None:
-        self.username = username
-        self.password = generate_password_hash(password)
-        self.mail     = mail
-
+class UserModel(db.Document):
+    username = db.StringField(required=True, unique=True)
+    password = db.StringField(required=True)
+    mail     = db.StringField(required=True, unique=True)
+    
     def json(self):
         return {
-                'id': self.id, 
-                'username': self.username
+                'username': self.username, 
+                'mail': self.mail
                 }
-
     @classmethod
     def find_by_username(cls, username):
-        return cls.query.filter_by(username=username).first()
-
-    @classmethod
-    def find_by_id(cls, _id):
-        return cls.query.filter_by(id=_id).first()
-    
+        return cls.objects(username=username).first()
     @classmethod
     def find_by_mail(cls, mail):
-        return cls.query.filter_by(mail=mail).first()
-
-    def save_to_db(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def delete_from_db(self):
-        db.session.delete(self)
-        db.session.commit()
+        return cls.objects(mail=mail).first()

@@ -19,8 +19,6 @@ class TestCreatingUser(unittest.TestCase):
         - check if user deleted by endpoint & check if user deleted in db
     """
     def setUp(self):  # Prepare test environment
-        self.engine = create_engine('sqlite:///app/db.sqlite')
-        self.conn = self.engine.connect()
         
         self.valid_user = json.dumps({
             "username": "test_user1",
@@ -66,56 +64,41 @@ class TestCreatingUser(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         
     def test2_user_get(self):
-        response = requests.get('http://localhost:5000/api/user/1')
+        response = requests.get('http://localhost:5000/api/user/test_user1')
         self.assertEqual(response.status_code, 200)
     
-    def test3_if_user_created_in_db(self):
-        user = self.engine.execute(text("SELECT * FROM users WHERE username = 'test_user1'")).fetchone()
-        check = True if user else False
-        self.assertEqual(check, True)
-    
-    def test4_if_non_valid_username(self):
+    def test3_if_non_valid_username(self):
         response = requests.post('http://localhost:5000/api/register', data=self.non_valid_username, headers={'Content-Type': 'application/json'})
         self.assertEqual(response.status_code, 400)
 
-    def test5_if_non_valid_mail(self):
+    def test4_if_non_valid_mail(self):
         response = requests.post('http://localhost:5000/api/register', data=self.non_valid_mail, headers={'Content-Type': 'application/json'})
         self.assertEqual(response.status_code, 400)
     
-    def test6_if_non_valid_password(self):
+    def test5_if_non_valid_password(self):
         response = requests.post('http://localhost:5000/api/register', data=self.non_valid_password, headers={'Content-Type': 'application/json'})
         self.assertEqual(response.status_code, 400)
     
-    def test7_if_exising_username(self):
+    def test6_if_exising_username(self):
         response = requests.post('http://localhost:5000/api/register', data=self.non_valid_username, headers={'Content-Type': 'application/json'})
         self.assertEqual(response.status_code, 400)
         
-    def test8_if_exising_mail(self):
+    def test7_if_exising_mail(self):
         response = requests.post('http://localhost:5000/api/register', data=self.non_valid_mail, headers={'Content-Type': 'application/json'})
         self.assertEqual(response.status_code, 400)
 
 class TestDeletingUser(unittest.TestCase):
-    def setUp(self):
-        self.engine = create_engine('sqlite:///app/db.sqlite')
-        self.conn = self.engine.connect()
 
     def test1_user_delete(self):
         response = requests.delete('http://localhost:5000/api/user/1')
         self.assertEqual(response.status_code, 200)
     
-    def test2_if_user_deleted_in_db(self):
-        user = self.engine.execute(text("SELECT * FROM users WHERE username = 'test_user1'")).fetchone()
-        check = True if user else False
-        self.assertEqual(check, False)
-    
-    def test3_if_user_deleted(self):
+    def test2_if_user_deleted(self):
         response = requests.get('http://localhost:5000/api/user/1')
         self.assertEqual(response.status_code, 404)
 
 class TestLoggingUser(unittest.TestCase):
     def setUp(self):
-        self.engine = create_engine('sqlite:///app/db.sqlite')
-        self.conn = self.engine.connect()
         self.valid_user = json.dumps({
             "username": "test_user1",
             "mail": "test1@test.com",

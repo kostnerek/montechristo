@@ -3,6 +3,7 @@ import re
 from flask_restful import Resource, reqparse
 from email_validator import validate_email
 from string import punctuation, whitespace, digits, ascii_lowercase, ascii_uppercase
+from werkzeug.security import generate_password_hash
 
 
 user_register_parser = reqparse.RequestParser()
@@ -80,6 +81,6 @@ class UserRegister(Resource):
             return {'message': 'Invalid password'}, 400
         if len(data['username']) < 3:
             return {'message': 'Username must be at least 3 characters long'}, 400
-        user = UserModel(**data)
-        user.save_to_db()
+        user = UserModel(username=data['username'], mail=data['mail'], password=generate_password_hash(data['password']))
+        user.save()
         return {'message': 'User created successfully', 'user': user.json()}, 201
