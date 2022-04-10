@@ -8,6 +8,6 @@ import unittest
 import test.TestUserResource
 
 suite = unittest.TestLoader().loadTestsFromModule(test.TestUserResource)
-suite.sortTestMethodsUsing = lambda _, x, y: cmp(y, x)
+unittest.defaultTestLoader.sortTestMethodsUsing = lambda *args: -1
 unittest.TextTestRunner(verbosity=3).run(suite)
 #unittest.main()
