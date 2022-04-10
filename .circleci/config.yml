@@ -4,12 +4,12 @@ workflows:
     backend-workflow:
         jobs:
             - build:
-                context:
-                    - montechristo-env-vars
-                filters:
+                  context:
+                      - montechristo-env-vars
+                  filters:
                       branches:
-                            only:
-                                - dev
+                          only:
+                              - dev
 
 jobs:
     build:
@@ -19,7 +19,6 @@ jobs:
             - run: |
                   echo "$DOCKERHUB_PASSWORD" | docker login --username kostnerek --password-stdin
 
-            # build the application image
             - run: docker build -f Dockerfile.api -t kostnerek/montechristo .
 
             # deploy the image
@@ -28,7 +27,8 @@ jobs:
                   fingerprints:
                       - "04:f8:a5:21:e4:db:78:be:53:20:be:7c:d0:b3:8e:12"
             - run: |
-                  ssh lema@20.222.251.245 \<<'ENDSSH' 
+                  ssh lema@20.222.251.245 \<<'ENDSSH'
+                  export MONGODB_URL=$MONGODB_URL
                   sudo docker pull kostnerek/montechristo
                   sudo docker kill lema_client_1
                   sudo docker kill lema_api_1
