@@ -35,8 +35,8 @@ class UserLogin(Resource):
             return {'message': 'User not found'}, 404
         
         if check_password_hash(user.password, data['password']):
-            access_token = create_access_token(identity=user.id, fresh=True)
-            refresh_token= create_refresh_token(user.id)
+            access_token = create_access_token(identity=user.username, fresh=True)
+            refresh_token= create_refresh_token(user.username)
             return {
                 'access_token': access_token,
                 'refresh_token': refresh_token
@@ -50,13 +50,10 @@ class UserLogout(Resource):
     @jwt_required()
     def delete(self):
         refresh_token = UserLogout.logout_parser.parse_args()['refresh_token']
-        #print("Blacklist before: ", BLACKLIST)
-        #print(refresh_token)
         access_token_jti=get_jwt()['jti']
         refresh_token_jti=get_jti(refresh_token)
         BLACKLIST.add(access_token_jti)
         BLACKLIST.add(refresh_token_jti)
-        #print(BLACKLIST)
         return {'message': 'Successfully logged out'}, 200
 
 class TokenRefresh(Resource):
