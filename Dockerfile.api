@@ -1,4 +1,6 @@
 FROM python:3.9
+ARG MONGODB_URL # you could give this a default value as well
+ENV MONGODB_URL=$MONGODB_URL
 COPY ./app /app
 
 COPY requirements.txt ./requirements.txt
