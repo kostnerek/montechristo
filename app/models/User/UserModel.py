@@ -1,4 +1,5 @@
-from db import db
+#from db import db
+from app.db import db 
 from werkzeug.security import generate_password_hash
 
 class UserModel(db.Model):

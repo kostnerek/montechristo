@@ -1,5 +1,6 @@
-from models.User.UserModel import UserModel
-from blacklist import BLACKLIST
+#from models.User.UserModel import UserModel
+from app.models.User.UserModel import UserModel
+from app.blacklist import BLACKLIST
 from werkzeug.security import check_password_hash
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (create_access_token,

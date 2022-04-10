@@ -6,15 +6,15 @@ from datetime import timedelta
 import os
 #from dotenv import load_dotenv
 
-from models.User.UserModel import UserModel
-from db import db
-from blacklist import BLACKLIST
+#from models.User.UserModel import UserModel
+from .db import db
+from .blacklist import BLACKLIST
 
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 
 #load_dotenv()
-print(os.environ)
+#print(os.environ)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
@@ -40,9 +40,9 @@ def create_tables():
     db.create_all()
 
 
-from resources.User.UserLoginResource import UserLogin, UserLogout, TokenRefresh
-from resources.User.UserRegisterResource import UserRegister
-from resources.User.UserResource import User
+from .resources.User.UserLoginResource import UserLogin, UserLogout, TokenRefresh
+from .resources.User.UserRegisterResource import UserRegister
+from .resources.User.UserResource import User
 
 api.add_resource(UserLogin,    '/api/login')
 api.add_resource(UserLogout,   '/api/logout')
@@ -54,7 +54,7 @@ api.add_resource(User,         '/api/user/<int:user_id>')
 """ 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    return jsonify({'message': 'Welcome to the API'})
 
 @app.route('/api/time')
 def temperature():

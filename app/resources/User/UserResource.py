@@ -1,4 +1,4 @@
-from models.User.UserModel import UserModel
+from app.models.User.UserModel import UserModel
 from flask_restful import Resource
 
 class User(Resource):

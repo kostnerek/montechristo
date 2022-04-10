@@ -1,4 +1,4 @@
-from models.User.UserModel import UserModel
+from app.models.User.UserModel import UserModel
 import re
 from flask_restful import Resource, reqparse
 from email_validator import validate_email
