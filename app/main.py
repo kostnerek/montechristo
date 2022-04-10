@@ -4,7 +4,7 @@ from flask_restful import Api
 from flask_jwt_extended import JWTManager, jwt_required
 from datetime import timedelta
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 from models.User.UserModel import UserModel
 from db import db
@@ -13,9 +13,9 @@ from blacklist import BLACKLIST
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 
-load_dotenv()
-
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URI")
+#load_dotenv()
+print(os.environ)
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.config['JWT_BLACKLIST_ENABLED'] = True
