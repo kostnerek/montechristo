@@ -29,7 +29,7 @@ jobs:
             - run: |
                   ssh lema@20.222.251.245 \<<'ENDSSH'
                   sudo echo $MONGODB_URL>>/etc/environment
-                  export MONGODB_URL=$MONGODB_URL
+                  sudo export MONGODB_URL=$MONGODB_URL>$MONGODB_URL
                   sudo docker pull kostnerek/montechristo
                   sudo docker kill lema_client_1
                   sudo docker kill lema_api_1
