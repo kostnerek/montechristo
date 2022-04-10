@@ -4,12 +4,12 @@ workflows:
     backend-workflow:
         jobs:
             - build:
-                  context:
-                      - montechristo-env-vars
-                  filters:
+                context:
+                    - montechristo-env-vars
+                filters:
                       branches:
-                          only:
-                              - dev
+                            only:
+                                - dev
 
 jobs:
     build:
